@@ -8,14 +8,13 @@ RUN go build -o sts-mate .
 EXPOSE 443
 
 # Comma-separated list of domains to serve policies for.
-ENV STS_DOMAIN "example.user"
-# Source of the live STS policy to mirror.
-ENV MIRROR_STS_FROM "google.com"
-# If set, to "http", serves the policy on HTTP (instead of HTTPS). Good for
-# when you are behind an HTTPS-terminating reverse proxy.
-ENV HTTP "nohttp"
+ENV STS_DOMAIN "d4ve.email"
+# Comma-separated list of MX.
+ENV STS_MX "aspmx1.migadu.com,aspmx2.migadu.com"
+ENV STS_MODE "testing"
+ENV STS_MAX_AGE "604800"
 # Usage:
 #  --domain is the domain to serve a policy for.
 #  --mirror_sts_from is the mail domain from which to proxy STS policies
 #  --domain is the domain for which to serve a policy (if limited)
-CMD ["sh", "-c", "./sts-mate --domain $STS_DOMAIN --mirror_sts_from $MIRROR_STS_FROM --$HTTP"]
+CMD ["sh", "-c", "./sts-mate --domain $STS_DOMAIN --sts_mx $STS_MX --sts_mode $STS_MODE --sts_max_age $STS_MAX_AGE"]
